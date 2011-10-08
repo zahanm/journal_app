@@ -1,5 +1,5 @@
 
-from journalweb.models import Journal, Section
+from journal.models import Journal, Section
 from django.contrib import admin
 
 admin.site.register(Journal)
