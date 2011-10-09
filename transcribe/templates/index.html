@@ -1,6 +1,11 @@
 
 {% extends 'base.html' %}
 
+{% block custom_js %}
+<script type="text/javascript" src="/static/js/dormouse.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock custom_js %}
+
 {% block header %}
 <h3>Transcribe this Journal</h3>
 {% endblock header %}
