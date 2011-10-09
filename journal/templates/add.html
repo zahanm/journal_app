@@ -6,5 +6,10 @@
 {% endblock header %}
 
 {% block main %}
-Upload file dialog here
+<p>Upload file dialog here</p>
+<form enctype="multipart/form-data" action='/add/' method='post'>
+{% csrf_token %}
+{{ form.as_p }}
+<input type='submit' value='Add' />
+</form>
 {% endblock main %}
