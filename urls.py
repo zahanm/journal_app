@@ -9,8 +9,8 @@ urlpatterns = patterns('transcribe.views',
 )
 
 urlpatterns += patterns('journal.views',
-  url(r'^journal/add/$', 'add'),
-  url(r'^journal/(?P<journal_id>\d+)/$', 'show'),
+  url(r'^(?P<journal_id>\d+)/$', 'show'),
+  url(r'^add/$', 'add'),
 )
 
 urlpatterns += patterns('',

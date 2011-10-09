@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>{% block title %}Journal Transcription{% endblock title %}</title>
+  <meta name="description" content="Privacy preserving journal transcription, using social computing">
+  <meta name="author" content="Zahan Malkani">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div id="container">
+    <header>
+      {% block header %}
+      <h3>Privacy Preserving Journal Transcription</h3>
+      {% endblock header %}
+    </header>
+    <div id="main" role="main">
+    {% block main %}
+    {% endblock main %}
+    </div>
+    <footer>
+      {% block footer %}
+      Powered by <a href="http://dormou.se">dormou.se</a>
+      {% endblock footer %}
+    </footer>
+  </div>
+
+
+  <script defer src="js/script.js"></script>
+
+  <script>
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
+  
+</body>
+</html>
