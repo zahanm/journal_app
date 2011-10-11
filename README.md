@@ -11,4 +11,5 @@ Powered by [Dormouse](http://dormou.se).
 - SQLite3
 - Python Imaging Library (PIL)
 - Imagemagick
+- Ghostscript
 - pyPdf
