@@ -7,9 +7,13 @@ Powered by [Dormouse](http://dormou.se).
 
 ### Dependencies
 
-- Django 1.3.1
-- SQLite3
-- Python Imaging Library (PIL)
-- Imagemagick
-- Ghostscript
-- pyPdf
+- Python `easy_install`
+  - pypdf
+  - reportlab
+  - pil (Python Imaging Library)
+- brew or aptitude
+  - django 1.3.1
+  - sqlite3
+  - imagemagick
+  - ghostscript
+
