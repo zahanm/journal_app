@@ -3,5 +3,7 @@
 .*.swp
 *.pyc
 *.sublime-*
-uploads
+uploads/*
+!uploads/.gitkeep
+*.note
 
