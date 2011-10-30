@@ -3,7 +3,7 @@ from django.db import models
 
 class Journal(models.Model):
   name = models.CharField(max_length=100)
-  pdf = models.FileField(upload_to='uploads')
+  pdf = models.FileField(upload_to='journals')
   def __unicode__(self):
     return self.name
 
