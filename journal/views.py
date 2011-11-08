@@ -8,8 +8,8 @@ def add(request):
   if request.method == 'POST':
     form = JournalForm(request.POST, request.FILES)
     if form.is_valid():
-      form.save()
-      split_pdf()
+      journal = form.save()
+      split_pdf(journal.pdf)
       return redirect('home')
   else:
     form = JournalForm()

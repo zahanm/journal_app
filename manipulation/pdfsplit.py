@@ -11,29 +11,36 @@ import Image
 
 from pyPdf import PdfFileWriter, PdfFileReader
 
+'''
+Module to split pdf file into segments
+dependencies: django and journal_app models
+'''
+
 DOG_INPUT_FNAME = 'split.json'
 SEGMENTS_PER_PAGE = 6
 
-def split_pages(pdf_fname):
+def split_pages(pdf_fieldfile):
   out_fnames = []
-  with open(pdf_fname, 'rb') as inp_file:
+  with open(pdf_fieldfile.path, 'rb') as inp_file:
     inp = PdfFileReader(inp_file)
     for page in xrange(inp.getNumPages()):
       out = PdfFileWriter()
       out.addPage(inp.getPage(page))
-      out_fnames.append('tmp/page_{0}.pdf'.format(page))
-      with open(out_fnames[page], 'wb') as out_file:
-        out.write(out_file)
+      out_file = NamedTemporaryFile(suffix='.pdf', delete=False)
+      out.write(out_file)
+      out_file.close()
+      out_fnames.append(out_file.name)
   return out_fnames
 
 def convert_pages(pdf_fnames):
   for page, pdf_fname in enumerate(pdf_fnames):
-    png_fname = 'tmp/page_{0}.png'.format(page)
-    args = ['convert', pdf_fname, '-quality', '4', png_fname]
+    png_file = NamedTemporaryFile(suffix='.png', delete=False)
+    png_file.close()
+    args = ['convert', pdf_fname, '-quality', '4', png_file.name]
     retcode = call(args)
     if retcode != 0:
       raise RuntimeError('Error while converting pdf to png')
-    yield png_fname
+    yield png_file.name
 
 def divide_page(page_num, png_fname):
   page = Image.open(png_fname)
@@ -48,10 +55,11 @@ def divide_page(page_num, png_fname):
     yield segment_fname
     upper += segment_height
     lower += segment_height
+  page.close()
 
-def split_pdf(pdf_fname):
+def split_pdf(pdf_fieldfile):
   output = []
-  pdf_fnames = split_pages(pdf_fname)
+  pdf_fnames = split_pages(pdf_fieldfile)
   for page, png_fname in enumerate(convert_pages(pdf_fnames)):
     for segment_fname in divide_page(page, png_fname):
       output.append({ 'location': segment_fname, 'page': page })
@@ -65,6 +73,7 @@ def cleanup_last_run():
   map(lambda fg: os.remove(glob(fg)), file_globs)
 
 if __name__ == '__main__':
+  # change this to use djange.FileField
   if(len(sys.argv) == 2):
     cleanup_last_run()
     print(split_pdf(sys.argv[1]))
